@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Wallet — Руководство пользователя</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .sidebar {
+            flex: 0 0 250px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            height: fit-content;
+            position: sticky;
+            top: 80px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h3 {
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 0.7rem 1rem;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: #ecf0f1;
+            color: #667eea;
+        }
+
+        .sidebar-menu a.active {
+            background-color: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        .content {
+            flex: 1;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            color: #34495e;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .steps {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .steps li {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .step-number {
+            min-width: 40px;
+            width: 40px;
+            height: 40px;
+            background-color: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content strong {
+            display: block;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-hint {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .screenshot {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .phone-mock {
+            display: inline-block;
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 15px solid #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .phone-mock::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background-color: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .phone-mock-content {
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .phone-mock img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 30px;
+        }
+
+        .screenshot-label {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .callout {
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #3498db;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .callout.important {
+            border-left-color: #e74c3c;
+            background-color: #fadbd8;
+        }
+
+        .callout.success {
+            border-left-color: #27ae60;
+            background-color: #d5f4e6;
+        }
+
+        .callout.note {
+            border-left-color: #f39c12;
+            background-color: #fdebd0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: #fafafa;
+        }
+
+        th {
+            background-color: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1rem;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background-color: #ecf0f1;
+            color: #667eea;
+        }
+
+        .faq-answer {
+            padding: 1rem;
+            background-color: white;
+            display: none;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .faq-answer.show {
+            display: block;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+                flex: 1;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            nav {
+                gap: 0.8rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <a href="#" class="logo">Magic Wallet</a>
+        <nav>
+            <a href="#intro">Начало</a>
+            <a href="#transfers">Переводы</a>
+            <a href="#payment">Оплата</a>
+            <a href="#profile">Профиль</a>
+            <a href="#faq">FAQ</a>
+            <button class="cta-button">Скачать приложение</button>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Руководство Magic Wallet</h1>
+        <p>Отправляйте переводы, оплачивайте товары и управляйте профилем в несколько кликов</p>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <h3>Содержание</h3>
+            <ul class="sidebar-menu">
+                <li><a href="#intro" class="active">Введение</a></li>
+                <li><a href="#install">Установка</a></li>
+                <li><a href="#registration">Регистрация</a></li>
+                <li><a href="#home">Главная страница</a></li>
+                <li><a href="#qr">QR-код кошелька</a></li>
+                <li><a href="#transfers">Переводы</a></li>
+                <li><a href="#payment">Оплата товаров</a></li>
+                <li><a href="#profile">Профиль</a></li>
+                <li><a href="#security">Безопасность</a></li>
+                <li><a href="#faq">Часто задаваемые вопросы</a></li>
+                <li><a href="#support">Поддержка</a></li>
+            </ul>
+        </aside>
+
+        <!-- CONTENT -->
+        <main class="content">
+
+            <!-- INTRO -->
+            <section class="section" id="intro">
+                <h2>Введение</h2>
+                <p>Мобильное приложение <strong>Magic Wallet</strong> предоставляет удобный доступ к функциям электронного кошелька: отправка денежных переводов, оплата товаров и услуг по QR-коду, управление профилем и безопасностью счета.</p>
+            </section>
+
+            <!-- INSTALLATION -->
+            <section class="section" id="install">
+                <h2>1. Установка приложения</h2>
+                <p><strong>Системные требования:</strong> Версия 5.1 (Lollipop) и выше, камера, интернет-соединение.</p>
+                
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Откройте Google Play Store.</strong>
+                            <div class="step-hint">Введите в поиске «Magic Wallet».</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Нажмите «Установить».</strong>
+                            <div class="step-hint">Дождитесь завершения загрузки и установки (1-2 минуты).</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Откройте приложение.</strong>
+                            <div class="step-hint">После установки кнопка загрузки изменится на «Открыть».</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="callout important">
+                    <strong>⚠️ Важно</strong>
+                    <p>Скачивайте приложение только из официального Google Play Store. Не используйте альтернативные источники — это может привести к потере данных.</p>
+                </div>
+            </section>
+
+            <!-- REGISTRATION -->
+            <section class="section" id="registration">
+                <h2>2. Регистрация и вход</h2>
+
+                <h3>2.1 Первичная регистрация</h3>
+                <p>При первом запуске приложения выполните следующие шаги:</p>
+
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Введите номер мобильного телефона.</strong>
+                            <div class="step-hint">Используйте номер в международном или локальном формате.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Получите СМС с кодом.</strong>
+                            <div class="step-hint">Код действует 6 минут. Если СМС не пришла, проверьте номер или запросите код заново.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Введите код из СМС.</strong>
+                            <div class="step-hint">Код состоит из 6 цифр.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Создайте четырёхзначный ПИН-код.</strong>
+                            <div class="step-hint">Используйте для входа в приложение и подтверждения платежей. Запомните его!</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <strong>Подтвердите ПИН-код повторным вводом.</strong>
+                            <div class="step-hint">Убедитесь, что оба варианта совпадают.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="screenshot">
+                    <img src="/img/Screenshot_2.png" alt="register">
+                    <div class="screenshot-label">Первичная регистрация в приложении</div>
+                </div>
+
+                <h3>2.2 Восстановление доступа</h3>
+                <p>Если вы забыли ПИН-код или переустановили приложение, выполните восстановление:</p>
+
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Введите номер телефона.</strong>
+                            <div class="step-hint">Используйте тот же номер, что при регистрации.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Получите и введите код из СМС.</strong>
+                            <div class="step-hint">Операция займёт несколько минут.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Создайте новый ПИН-код.</strong>
+                            <div class="step-hint">Введите четырёхзначный код дважды.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="callout important">
+                    <strong>⚠️ Обратите внимание</strong>
+                    <p>При восстановлении доступа к приложению история платежей будет доступна, но все сохранённые шаблоны платежей будут удалены. Вы можете создать их заново.</p>
+                </div>
+
+                <h3>2.3 Вход в приложение</h3>
+                <p>При запуске приложения:</p>
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Введите ПИН-код.</strong>
+                            <div class="step-hint">Нажимайте цифры на цифровой клавиатуре.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Или используйте отпечаток пальца.</strong>
+                            <div class="step-hint">Если устройство поддерживает биометрию.</div>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- HOME PAGE -->
+            <section class="section" id="home">
+                <h2>3. Главная страница</h2>
+                <p>После входа вы видите главную страницу со следующими разделами:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Раздел</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Баланс счета</strong></td>
+                            <td>Текущая сумма в вашем электронном кошельке с указанием валюты</td>
+                        </tr>
+                        <tr>
+                            <td><strong>История операций</strong></td>
+                            <td>Просмотр последних операций и деталей платежей</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Сервисы</strong></td>
+                            <td>Оплата мобильной связи, ЖКХ и прочее</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Переводы</strong></td>
+                            <td>Отправка денежных средств другим пользователям</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Мой QR</strong></td>
+                            <td>Личный QR-код кошелька для получения переводов</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Оплата</strong></td>
+                            <td>Оплата товаров и услуг в магазинах и точках</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Сканер QR</strong></td>
+                            <td>Сканирование QR-кодов продавца для оплаты</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Профиль</strong></td>
+                            <td>Настройки, безопасность и управление аккаунтом</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+               <div class="screenshot">
+                    <img src="/img/Рисунок1.jpg" width="245px" alt="register">
+                    <div class="screenshot-label">Главная страница приложения Magic Wallet</div>
+                </div>
+            </section>
+
+            <!-- QR CODE -->
+            <section class="section" id="qr">
+                <h2>4. Получение QR-кода кошелька</h2>
+                <p>QR-код позволяет другим пользователям отправлять вам деньги. Для получения QR-кода:</p>
+
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>На главной странице нажмите «Мой QR».</strong>
+                            <div class="step-hint">Приложение сгенерирует уникальный QR-код вашего кошелька.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Покажите код другому пользователю.</strong>
+                            <div class="step-hint">Или поделитесь изображением через мессенджер.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Другой пользователь сканирует QR-код и отправляет вам перевод.</strong>
+                            <div class="step-hint">Деньги поступят на ваш счет в течение нескольких секунд.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="callout note">
+                    <strong>ℹ️ Совет</strong>
+                    <p>Вы можете сохранить скриншот QR-кода и поделиться им в социальных сетях или в профиле мессенджера для удобства.</p>
+                </div>
+            </section>
+
+            <!-- TRANSFERS -->
+            <section class="section" id="transfers">
+                <h2>5. Отправка денежных переводов</h2>
+                <p><strong>Magic Wallet</strong> поддерживает несколько способов отправки переводов.</br>У получателя также должно быть установлено приложение <strong>Magic Wallet</strong>.</p>
+
+                <h3>5.1 Перевод по номеру телефона</h3>
+                
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>На главной нажмите «Переводы».</strong>
+                            <div class="step-hint">Выберите раздел для управления переводами.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Выберите «По номеру телефона».</strong>
+                            <div class="step-hint">Или выберите контакт из телефонной книги.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Введите номер получателя и нажмите «Продолжить».</strong>
+                            <div class="step-hint">Система проверит, зарегистрирован ли номер в Magic Wallet.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Введите сумму перевода.</strong>
+                            <div class="step-hint">Укажите целое число. Комиссии нет.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <strong>По желанию добавьте сообщение.</strong>
+                            <div class="step-hint">Максимум 20 символов.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <strong>Нажмите «Перевод».</strong>
+                            <div class="step-hint">Введите ПИН-код для подтверждения.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="screenshot">
+                    <img src="/img/Рисунок10.jpg" width="245px" alt="register">
+                    <div class="screenshot-label">Отправка денежного перевода по номеру телефона</div>
+                </div>
+
+                <h3>5.2 Перевод по номеру кошелька (QR-код)</h3>
+                
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>В разделе «Переводы» выберите «По номеру кошелька».</strong>
+                            <div class="step-hint">Откроется камера для сканирования.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Отсканируйте QR-код получателя.</strong>
+                            <div class="step-hint">Или введите номер кошелька вручную.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Введите сумму и сообщение.</strong>
+                            <div class="step-hint">Сообщение покажется получателю при получении перевода.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Подтвердите ПИН-кодом.</strong>
+                            <div class="step-hint">Операция выполнится в течение нескольких секунд.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="callout success">
+                    <strong>✅ Перевод выполнен</strong>
+                    <p>После подтверждения деньги поступят получателю на счет. Проверьте статус операции в разделе «История».</p>
+                </div>
+            </section>
+
+            <!-- PAYMENT -->
+            <section class="section" id="payment">
+                <h2>6. Оплата товаров и услуг</h2>
+                <p>Приложение поддерживает два способа оплаты в магазинах и торговых точках. Интернет-соединение обязательно.</p>
+
+                <h3>6.1 Оплата по QR-коду продавца</h3>
+                
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>На главной нажмите кнопку «Сканер QR».</strong>
+                            <div class="step-hint">Откроется камера для сканирования.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Наведите камеру на QR-код продавца.</strong>
+                            <div class="step-hint">Код может быть на чеке, вывеске или экране терминала.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Приложение откроет окно оплаты с суммой.</strong>
+                            <div class="step-hint">Проверьте сумму перед подтверждением.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Нажмите «Оплатить» и введите ПИН-код.</strong>
+                            <div class="step-hint">Или используйте отпечаток пальца, если включена биометрия.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="screenshot">
+                    <img src="/img/Рисунок13.jpg" width="245px" alt="register">
+                    <div class="screenshot-label">Сканирование QR-кода для оплаты</div>
+                </div>
+
+                <h3>6.2 Оплата по QR-коду покупателя</h3>
+                <p>Способ для случаев, когда продавец не имеет QR-кода:</p>
+
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>На главной нажмите «Оплата».</strong>
+                            <div class="step-hint">Экран покажет ваш личный QR-код.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Покажите экран продавцу.</strong>
+                            <div class="step-hint">Продавец отсканирует ваш QR-код со своего устройства.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>На вашем экране появится окно подтверждения.</strong>
+                            <div class="step-hint">Система покажет сумму к оплате.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Подтвердите платеж ПИН-кодом.</strong>
+                            <div class="step-hint">Платеж выполнится мгновенно.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="callout important">
+                    <strong>⚠️ Проверяйте суммы</strong>
+                    <p>Перед подтверждением всегда проверяйте сумму, указанную на экране. Убедитесь, что данные соответствуют чеку или договорённости с продавцом.</p>
+                </div>
+            </section>
+
+            <!-- PROFILE -->
+            <section class="section" id="profile">
+                <h2>7. Профиль пользователя</h2>
+                <p>Раздел «Профиль» позволяет управлять настройками PIN-кода, шаблонами и автоплатежами, связаться с технической поддержкой, изменить внешний вид QR-кода, изменить язык приложения и стереть данные и выйти. Нажмите кнопку «Профиль» на главной странице.</p>
+
+                <h3>7.1 Безопасность и ПИН-код</h3>
+                
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">✓</div>
+                        <div class="step-content">
+                            <strong>Изменить ПИН-код.</strong>
+                            <div class="step-hint">Введите старый ПИН-код, затем новый дважды.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">✓</div>
+                        <div class="step-content">
+                            <strong>Включить/отключить отпечаток пальца.</strong>
+                            <div class="step-hint">Быстрый вход в приложение без ввода ПИН-кода.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">✓</div>
+                        <div class="step-content">
+                            <strong>Просмотр истории входов.</strong>
+                            <div class="step-hint">Дата, время и устройство каждого входа.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <h3>7.2 Шаблоны платежей</h3>
+                <p>Сохраняйте часто используемые платежи для быстрого повтора:</p>
+                
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">+</div>
+                        <div class="step-content">
+                            <strong>Добавить шаблон.</strong>
+                            <div class="step-hint">Сохраните номер телефона и сумму для повторного платежа.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">✎</div>
+                        <div class="step-content">
+                            <strong>Изменить шаблон.</strong>
+                            <div class="step-hint">Отредактируйте сумму или получателя.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">✕</div>
+                        <div class="step-content">
+                            <strong>Удалить шаблон.</strong>
+                            <div class="step-hint">Нажмите удалить и потяните влево.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <h3>7.3 Прочие настройки</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Настройка</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Язык</strong></td>
+                            <td>Смена языка интерфейса приложения</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Дизайн QR-кода</strong></td>
+                            <td>Выбор цвета и стиля QR-кода</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Тема (светлая/тёмная)</strong></td>
+                            <td>Выбор цветовой схемы интерфейса</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Уведомления</strong></td>
+                            <td>Включение/отключение пушей о платежах</td>
+                        </tr>
+                        <tr>
+                            <td><strong>О приложении</strong></td>
+                            <td>Версия, разработчик, сайт поддержки</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>7.4 Удаление аккаунта</h3>
+                <p>Для полного удаления профиля и данных:</p>
+
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>В профиле найдите раздел «Удалить профиль».</strong>
+                            <div class="step-hint">Находится в конце экрана.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Нажмите кнопку «Удалить профиль».</strong>
+                            <div class="step-hint">Появится подтверждение с предупреждением.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Подтвердите удаление и введите ПИН-код.</strong>
+                            <div class="step-hint">Все данные будут окончательно удалены.</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="callout important">
+                    <strong>⚠️ Внимание</strong>
+                    <p>Удаление аккаунта необратимо. Все данные профиля, история платежей и шаблоны будут безвозвратно удалены. Убедитесь перед выполнением этой операции.</p>
+                </div>
+            </section>
+
+            <!-- SECURITY -->
+            <section class="section" id="security">
+                <h2>8. Рекомендации по безопасности</h2>
+                
+                <div class="callout important">
+                    <strong>⚠️ Золотые правила безопасности</strong>
+                    <p>Следуйте этим рекомендациям, чтобы защитить ваш аккаунт и деньги.</p>
+                </div>
+
+                <ol class="steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Никому не сообщайте ПИН-код.</strong>
+                            <div class="step-hint">Даже сотрудники поддержки никогда не будут просить ПИН-код.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Не копируйте СМС-коды в чат.</strong>
+                            <div class="step-hint">Код подтверждения предназначен только для вас.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Используйте биометрию (отпечаток пальца).</strong>
+                            <div class="step-hint">Это быстрее и надёжнее обычного ввода ПИН-кода.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>Регулярно обновляйте приложение.</strong>
+                            <div class="step-hint">Обновления включают патчи безопасности.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <strong>При потере устройства восстановите доступ.</strong>
+                            <div class="step-hint">Процедура описана в разделе 2.2.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <strong>Проверяйте сумму перед подтверждением платежа.</strong>
+                            <div class="step-hint">Убедитесь, что данные соответствуют договорённости.</div>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- FAQ -->
+            <section class="section" id="faq">
+                <h2>9. Часто задаваемые вопросы</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Что делать, если не приходит СМС с кодом?</div>
+                    <div class="faq-answer">
+                        <p>1. Проверьте, правильно ли введён номер телефона.<br>
+                        2. Убедитесь, что на телефоне включены входящие СМС.<br>
+                        3. Подождите 1–2 минуты (СМС может идти с задержкой).<br>
+                        4. Нажмите «Отправить код заново» на экране приложения.<br>
+                        5. Если проблема сохраняется, обратитесь в поддержку.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Как изменить номер телефона?</div>
+                    <div class="faq-answer">
+                        <p>В разделе «Профиль» → «Безопасность» найдите опцию «Изменить номер телефона». Процедура требует ввода кода подтверждения для безопасности.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Что делать, если забыл ПИН-код?</div>
+                    <div class="faq-answer">
+                        <p>При входе нажмите «Забыли ПИН-код?» и выполните процедуру восстановления (раздел 2.2). Вам потребуется ввести номер телефона и код из СМС для создания нового ПИН-кода.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Есть ли комиссия за переводы?</div>
+                    <div class="faq-answer">
+                        <p>Нет, переводы между пользователями Magic Wallet совершенно бесплатны. Комиссия может взиматься только при пополнении счета или выводе средств на банковский счет.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Сколько времени занимает поступление денег?</div>
+                    <div class="faq-answer">
+                        <p>Переводы поступают мгновенно — в течение нескольких секунд. Если деньги не поступили в течение 5 минут, проверьте статус в разделе «История» или обратитесь в поддержку.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Какие требования к устройству?</div>
+                    <div class="faq-answer">
+                        <p>Минимальные требования: Android 5.1 и выше, камера для сканирования QR-кодов, постоянное интернет-соединение. Рекомендуется использовать последнюю версию Android для оптимальной безопасности.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Как связаться с поддержкой?</div>
+                    <div class="faq-answer">
+                        <p>Вы можете обратиться в поддержку несколькими способами:<br>
+                        • Через приложение: «Профиль» → «Поддержка» → «Написать сообщение»<br>
+                        • Email: support@magic.com<br>
+                        • Телефон: +7 (XXX) XXX-XX-XX<br>
+                        • Сайт: https://www.magicwallet.com</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Что если при оплате произойдёт ошибка?</div>
+                    <div class="faq-answer">
+                        <p>Если платеж не удался, деньги вернутся на ваш счет в течение 1–2 часов. Проверьте статус операции в «История» → «Lетали платежа». Если баланс не пополнился, обратитесь в поддержку с номером операции.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">❓ Можно ли использовать приложение без интернета?</div>
+                    <div class="faq-answer">
+                        <p>Нет, для всех операций требуется активное интернет-соединение (Wi-Fi или мобильная сеть). Вход и операции будут невозможны без подключения.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUPPORT -->
+            <section class="section" id="support">
+                <h2>10. Служба поддержки</h2>
+                <p>Если у вас остались вопросы или возникли проблемы, обратитесь в службу технической поддержки:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Канал</th>
+                            <th>Контакт</th>
+                            <th>Время ответа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>В приложении</strong></td>
+                            <td>Профиль → Поддержка → Чат</td>
+                            <td>1–2 часа</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email</strong></td>
+                            <td>support@magic.com</td>
+                            <td>2–4 часа</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Телефон</strong></td>
+                            <td>+7 (XXX) XXX-XX-XX</td>
+                            <td>Сразу</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Сайт</strong></td>
+                            <td>https://www.magic.com</td>
+                            <td>Документация</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout note">
+                    <strong>ℹ️ Совет по быстрому решению</strong>
+                    <p>При обращении в поддержку обязательно указывайте: номер операции (если применимо), время происшествия, скриншот ошибки и подробное описание проблемы. Это ускорит решение в несколько раз.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Magic Wallet. Все права защищены.</p>
+        <p>Актуальная версия руководства доступна на <a href="https://www.magicwallet.com">сайте разработчика</a>.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll and active menu
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Update active menu
+                    document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // FAQ toggle with fixed answer display logic
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isShown = answer.classList.contains('show');
+                
+                // Close all other answers
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    a.classList.remove('show');
+                });
+                
+                // Toggle current answer
+                if (!isShown) {
+                    answer.classList.add('show');
+                }
+            });
+        });
+
+        // Close FAQ when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.faq-item')) {
+                document.querySelectorAll('.faq-answer').forEach(answer => {
+                    answer.classList.remove('show');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
